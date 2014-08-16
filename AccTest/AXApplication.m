@@ -9,6 +9,12 @@
 #import "AXApplication.h"
 #import "AXWindow.h"
 
+@interface AXApplication () {
+    NSRunningApplication *mRunningApplication;
+}
+
+@end
+
 @implementation AXApplication
 
 - (instancetype)initWithWindowInfoDictionary:(NSDictionary *)aWindowInfoDictonary
@@ -16,20 +22,36 @@
     self = [super init];
     if (self != nil)
     {
-        NSRect rect;
-        CGRectMakeWithDictionaryRepresentation((CFDictionaryRef)[aWindowInfoDictonary objectForKey:(id)kCGWindowBounds],
-                                               (struct CGRect *)&rect);
-        self.rect = rect;
+        NSLog(@"%@", aWindowInfoDictonary);
         
-        self.pid      = [aWindowInfoDictonary[(id)kCGWindowOwnerPID] intValue];
-        self.windowID = [aWindowInfoDictonary[(id)kCGWindowNumber] intValue];
-        self.name     = aWindowInfoDictonary[(id)kCGWindowOwnerName];
+        [self initailizeWithWindowInfoDictionary:aWindowInfoDictonary];
+        [self initializeOtherApplicationInfos];
     }
     
     return self;
 }
 
-#pragma mark -
+#pragma mark - Private
+
+- (void)initailizeWithWindowInfoDictionary:(NSDictionary *)aWindowInfoDictonary
+{
+    NSRect rect;
+    CGRectMakeWithDictionaryRepresentation((CFDictionaryRef)[aWindowInfoDictonary objectForKey:(id)kCGWindowBounds],
+                                           (struct CGRect *)&rect);
+    self.rect = rect;
+    
+    self.pid      = [aWindowInfoDictonary[(id)kCGWindowOwnerPID] intValue];
+    self.windowID = [aWindowInfoDictonary[(id)kCGWindowNumber] intValue];
+    self.name     = aWindowInfoDictonary[(id)kCGWindowOwnerName];
+}
+
+- (void)initializeOtherApplicationInfos
+{
+    mRunningApplication = [NSRunningApplication runningApplicationWithProcessIdentifier:self.pid];
+    self.iconImage      = mRunningApplication.icon;
+}
+
+#pragma mark - Public
 
 - (BOOL)findFocusedWindow
 {

@@ -17,6 +17,7 @@
 @property (nonatomic, assign) NSRect    rect;
 @property (nonatomic, assign) NSString *name;
 
+@property (nonatomic, strong) NSImage  *iconImage;
 @property (nonatomic, strong) AXWindow *focusedWindow;
 
 - (instancetype)initWithWindowInfoDictionary:(NSDictionary *)aWindowInfoDictonary;

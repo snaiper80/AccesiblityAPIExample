@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>98A9B8C7-58F2-42FD-8FDE-A6A0D024A013</string>
+	<string>8F74862D-A1D9-47AF-AE24-99D424849EFD</string>
 	<key>IDESourceControlProjectName</key>
 	<string>AccTest</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>06EBC042-4B5F-49BA-9604-671D82FAD88B</key>
-		<string>ssh://seed1.projectlocker.com/d-day.git</string>
+		<key>DA69B1FC-29D0-41DE-A144-14C71F25543B</key>
+		<string>https://github.com/snaiper80/AccTest.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>AccTest/AccTest.xcodeproj/project.xcworkspace</string>
+	<string>AccTest.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>06EBC042-4B5F-49BA-9604-671D82FAD88B</key>
-		<string>../../..</string>
+		<key>DA69B1FC-29D0-41DE-A144-14C71F25543B</key>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://seed1.projectlocker.com/d-day.git</string>
+	<string>https://github.com/snaiper80/AccTest.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>06EBC042-4B5F-49BA-9604-671D82FAD88B</string>
+	<string>DA69B1FC-29D0-41DE-A144-14C71F25543B</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>06EBC042-4B5F-49BA-9604-671D82FAD88B</string>
+			<string>DA69B1FC-29D0-41DE-A144-14C71F25543B</string>
 			<key>IDESourceControlWCCName</key>
-			<string>d-day</string>
+			<string>AccTest</string>
 		</dict>
 	</array>
 </dict>
