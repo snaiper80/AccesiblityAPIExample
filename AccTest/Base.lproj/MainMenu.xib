@@ -676,10 +676,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="36" horizontalPageScroll="10" verticalLineScroll="36" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muf-cr-vZU">
+                    <scrollView autohidesScrollers="YES" horizontalLineScroll="36" horizontalPageScroll="10" verticalLineScroll="36" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muf-cr-vZU">
                         <rect key="frame" x="20" y="18" width="440" height="322"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <clipView key="contentView" ambiguous="YES" misplaced="YES" id="aLO-Lr-iRh">
+                        <clipView key="contentView" id="aLO-Lr-iRh">
                             <rect key="frame" x="1" y="1" width="438" height="320"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -748,6 +748,12 @@
                         </scroller>
                     </scrollView>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="muf-cr-vZU" secondAttribute="bottom" constant="18" id="3AC-89-WDv"/>
+                    <constraint firstAttribute="trailing" secondItem="muf-cr-vZU" secondAttribute="trailing" constant="20" id="608-BD-Bsj"/>
+                    <constraint firstItem="muf-cr-vZU" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" id="WPB-jZ-VwG"/>
+                    <constraint firstItem="muf-cr-vZU" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="uJF-v1-2oJ"/>
+                </constraints>
             </view>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="0gn-dE-tkT"/>
