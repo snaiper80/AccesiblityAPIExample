@@ -1,0 +1,3 @@
+[submodule "dependencies/DDHotKey"]
+	path = dependencies/DDHotKey
+	url = https://github.com/davedelong/DDHotKey
