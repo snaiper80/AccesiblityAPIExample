@@ -15,8 +15,9 @@
 #import "DDHotKeyCenter.h"
 
 @interface ATAppDelegate () {
-    NSImageView *mScreenShotView;
-    NSWindow    *mScreentShotWindow;
+    NSImageView  *mScreenShotView;
+    NSWindow     *mScreentShotWindow;
+    NSStatusItem *mStatusItem;
 }
 
 @end
@@ -51,10 +52,14 @@
     // Register hot key
     [self registerHotKey];
     
+    // Menu
+    [self makeStatusBar];
+    
     // Load from found applications that has a focused window.
     [self.tableView setTarget:self];
     [self.tableView setDoubleAction:@selector(doubleClicked:)];
     [self.tableView reloadData];
+
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
@@ -62,6 +67,27 @@
     [self unregisterHotKey];
     
     return NSTerminateNow;
+}
+
+#pragma mark - Status Menu
+
+- (void)makeStatusBar
+{
+    NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Menu"];
+    
+    NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"test" action:@selector(actionMenu:) keyEquivalent:@""];
+    [menu addItem:item];
+    
+    mStatusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
+    [mStatusItem setMenu:menu];
+    //[statusItem setImage:[NSImage imageNamed:@""]];
+    [mStatusItem setTitle:@"AccTest"];
+    [mStatusItem setHighlightMode:YES];
+}
+
+- (void)actionMenu:(id)aSender
+{
+    NSLog(@"Menu");
 }
 
 #pragma mark - TableView
