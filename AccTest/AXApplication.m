@@ -22,9 +22,7 @@
     self = [super init];
     if (self != nil)
     {
-        NSLog(@"%@", aWindowInfoDictonary);
-        
-        [self initailizeWithWindowInfoDictionary:aWindowInfoDictonary];
+        [self initializeWithWindowInfoDictionary:aWindowInfoDictonary];
         [self initializeOtherApplicationInfos];
     }
     
@@ -33,7 +31,7 @@
 
 #pragma mark - Private
 
-- (void)initailizeWithWindowInfoDictionary:(NSDictionary *)aWindowInfoDictonary
+- (void)initializeWithWindowInfoDictionary:(NSDictionary *)aWindowInfoDictonary
 {
     NSRect rect;
     CGRectMakeWithDictionaryRepresentation((CFDictionaryRef)[aWindowInfoDictonary objectForKey:(id)kCGWindowBounds],

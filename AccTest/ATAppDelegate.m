@@ -8,6 +8,7 @@
 
 #import "ATAppDelegate.h"
 #import "AXWindowManager.h"
+#import "AXApplication.h"
 
 @implementation ATAppDelegate
 
@@ -18,7 +19,29 @@
         return ;
     
     axWinMgr = [[AXWindowManager alloc] init];
-    [axWinMgr getFocusedWindows];
+    [axWinMgr findApplicationsAndFocusedWindow];
+    
+    [self.tableView reloadData];
 }
+
+#pragma mark - TableView
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
+{
+    return [axWinMgr.applications count];
+}
+
+- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    NSString        *identifer = [tableColumn identifier];
+    AXApplication   *app       = [axWinMgr.applications objectAtIndex:row];
+    
+    NSTableCellView *cellView  = [tableView makeViewWithIdentifier:identifer owner:self];
+    cellView.textField.stringValue = [NSString stringWithFormat:@"%@ (%@)", app.name, app.focusedWindow];
+    cellView.imageView.image = app.iconImage;
+    
+    return cellView;
+}
+
 
 @end

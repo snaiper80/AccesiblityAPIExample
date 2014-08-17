@@ -10,10 +10,11 @@
 
 @class AXWindowManager;
 
-@interface ATAppDelegate : NSObject <NSApplicationDelegate> {
+@interface ATAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDelegate, NSTableViewDataSource> {
     AXWindowManager *axWinMgr;
 }
 
-@property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSWindow          *window;
+@property (weak)   IBOutlet NSTableView       *tableView;
 
 @end

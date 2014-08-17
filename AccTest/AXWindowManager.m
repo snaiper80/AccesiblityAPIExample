@@ -89,7 +89,7 @@
 
 #pragma mark -
 
-- (void)getFocusedWindows
+- (void)findApplicationsAndFocusedWindow
 {
     NSArray *allWindowsInfo = nil;
     CGWindowListOption options = kCGWindowListOptionOnScreenOnly & kCGWindowListExcludeDesktopElements;
@@ -115,11 +115,20 @@
         return ;
     }
     
+    NSMutableArray *apps = [NSMutableArray arrayWithCapacity:[allWindowsInfo count]];
+    
     for (NSDictionary *aWindowInfo in allWindowsInfo)
     {
         AXApplication *application = [[AXApplication alloc] initWithWindowInfoDictionary:aWindowInfo];
-        [application findFocusedWindow];
+        
+        if ([application findFocusedWindow] == YES)
+        {
+            // Should add if it has a focused window only
+            [apps addObject:application];
+        }
     }
+    
+    self.applications = apps;
 }
 
 

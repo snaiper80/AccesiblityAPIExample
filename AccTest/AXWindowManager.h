@@ -12,8 +12,10 @@
     
 }
 
+@property (strong) NSArray *applications;
+
 + (BOOL)checkAccessbility;
 
-- (void)getFocusedWindows;
+- (void)findApplicationsAndFocusedWindow;
 
 @end
