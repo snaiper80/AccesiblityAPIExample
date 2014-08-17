@@ -14,6 +14,13 @@
 
 #import "DDHotKeyCenter.h"
 
+@interface ATAppDelegate () {
+    NSImageView *mScreenShotView;
+    NSWindow    *mScreentShotWindow;
+}
+
+@end
+
 @implementation ATAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -21,6 +28,21 @@
     // Insert code here to initialize your application
     if ([AXWindowManager checkAccessbility] == NO)
         return ;
+    
+    // To bring your app to the front
+    [NSApp activateIgnoringOtherApps:YES];
+    
+    // create a another window
+    NSRect windowRect = NSMakeRect(10.0f, 10.0f, 800.0f, 600.0f);
+    mScreentShotWindow = [[NSWindow alloc] initWithContentRect:windowRect
+                                                     styleMask:( NSResizableWindowMask | NSClosableWindowMask | NSTitledWindowMask)
+                                                       backing:NSBackingStoreBuffered
+                                                         defer:NO];
+    
+    NSScrollView *scrollview = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, 800, 600)];
+    [scrollview setHasVerticalScroller:YES];
+    [scrollview setAcceptsTouchEvents:YES];
+    [mScreentShotWindow setContentView:scrollview];
     
     // Initialize Window Manager
     axWinMgr = [[AXWindowManager alloc] init];
@@ -30,6 +52,8 @@
     [self registerHotKey];
     
     // Load from found applications that has a focused window.
+    [self.tableView setTarget:self];
+    [self.tableView setDoubleAction:@selector(doubleClicked:)];
     [self.tableView reloadData];
 }
 
@@ -57,6 +81,43 @@
     cellView.imageView.image = app.iconImage;
     
     return cellView;
+}
+
+#pragma mark - TableView Event
+
+- (void)doubleClicked:(NSTableView *)aSender
+{
+    NSInteger row = [aSender clickedRow];
+    if (row == NSNotFound)
+        return ;
+    
+    if (mScreenShotView != nil)
+    {
+        [mScreenShotView removeFromSuperview];
+        mScreenShotView = nil;
+    }
+    
+    AXApplication *app        = [axWinMgr.applications objectAtIndex:row];
+    NSImage       *screenShot = [app createImageSnapshot];
+    NSSize         shotSize   = [screenShot size];
+    
+    if (shotSize.width > 1 && shotSize.height > 1)
+    {
+        NSLog(@"Screen Shot : %@", screenShot);
+        
+        NSImageView *shotView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, 0, shotSize.width, shotSize.height)];
+        [shotView setImageScaling:NSImageScaleProportionallyUpOrDown];
+        [shotView setImage:screenShot];
+        
+        // size to fit contents (screen shot image)
+        [mScreentShotWindow setContentAspectRatio:shotSize];
+        [mScreentShotWindow setContentSize:shotSize];
+        
+        [mScreentShotWindow.contentView addSubview:shotView];
+        [mScreentShotWindow makeKeyAndOrderFront:nil];
+        
+        mScreenShotView = shotView;
+    }
 }
 
 #pragma mark - Hotkey

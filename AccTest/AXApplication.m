@@ -49,6 +49,19 @@
     self.iconImage      = mRunningApplication.icon;
 }
 
++ (NSImage *)imageFromCGImageRef:(CGImageRef)cgImage
+{
+    if (cgImage == NULL)
+        return nil;
+    
+    NSBitmapImageRep *bitmapRep = [[NSBitmapImageRep alloc] initWithCGImage:cgImage];
+    
+    NSImage *image = [[NSImage alloc] init];
+    [image addRepresentation:bitmapRep];
+    
+    return image;
+}
+
 #pragma mark - Public
 
 - (BOOL)findFocusedWindow
@@ -77,6 +90,24 @@
     
     CFRelease(applicationRef);
     return YES;
+}
+
+- (NSImage *)createImageSnapshot
+{
+    NSImage    *image = nil;
+    
+    // Tight Fit => CGRectNull, or NOT => CGRectInfinite
+    CGWindowImageOption imageOptions = kCGWindowImageDefault | kCGWindowImageBoundsIgnoreFraming | kCGWindowImageShouldBeOpaque;
+    CGImageRef          windowImage  = CGWindowListCreateImage(CGRectNull,
+                                                               kCGWindowListOptionIncludingWindow,
+                                                               self.windowID,
+                                                               imageOptions);
+    
+    CFRelease(CGDataProviderCopyData(CGImageGetDataProvider(windowImage)));
+    image = [[self class] imageFromCGImageRef:windowImage];
+    CGImageRelease(windowImage);
+    
+    return image;
 }
 
 @end

@@ -23,5 +23,6 @@
 - (instancetype)initWithWindowInfoDictionary:(NSDictionary *)aWindowInfoDictonary;
 
 - (BOOL)findFocusedWindow;
+- (NSImage *)createImageSnapshot;
 
 @end
